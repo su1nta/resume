@@ -4,278 +4,647 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
-        <title>Sukanta Bala - Resume</title>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Manrope:wght@400;500;600;700&display=swap"
+            rel="stylesheet"
+        />
+        <title>Sukanta Bala | Resume</title>
+        <style>
+            :root {
+                --paper: #f8f4ea;
+                --ink: #171717;
+                --muted-ink: #59554f;
+                --line: #d4cdc0;
+                --panel: rgba(255, 255, 255, 0.76);
+                --accent: #0f6e5a;
+                --accent-soft: #d9efe8;
+                --shadow: 0 20px 50px rgba(23, 23, 23, 0.12);
+                --radius: 18px;
+            }
+
+            * {
+                box-sizing: border-box;
+            }
+
+            body {
+                margin: 0;
+                color: var(--ink);
+                font-family: "Manrope", "Segoe UI", sans-serif;
+                background:
+                    radial-gradient(
+                        circle at 15% 20%,
+                        rgba(15, 110, 90, 0.2),
+                        transparent 40%
+                    ),
+                    radial-gradient(
+                        circle at 85% 8%,
+                        rgba(190, 145, 87, 0.25),
+                        transparent 35%
+                    ),
+                    var(--paper);
+                line-height: 1.65;
+            }
+
+            a {
+                color: inherit;
+                text-underline-offset: 3px;
+            }
+
+            .shell {
+                max-width: 1100px;
+                margin: 0 auto;
+                padding: 32px 18px 56px;
+            }
+
+            .hero {
+                border: 1px solid var(--line);
+                border-radius: calc(var(--radius) + 4px);
+                background: var(--panel);
+                backdrop-filter: blur(6px);
+                box-shadow: var(--shadow);
+                padding: 28px;
+                position: relative;
+                overflow: hidden;
+            }
+
+            .hero::after {
+                content: "";
+                position: absolute;
+                width: 180px;
+                aspect-ratio: 1;
+                right: -40px;
+                top: -40px;
+                border-radius: 50%;
+                background: radial-gradient(
+                    circle,
+                    rgba(15, 110, 90, 0.24),
+                    transparent 65%
+                );
+            }
+
+            .name {
+                margin: 0;
+                font:
+                    700 clamp(2.2rem, 6vw, 3.5rem) / 1.03 "Cormorant Garamond",
+                    Georgia,
+                    serif;
+                letter-spacing: 0.4px;
+            }
+
+            .role {
+                margin: 8px 0 16px;
+                color: var(--muted-ink);
+                font-size: 1.02rem;
+                letter-spacing: 0.03em;
+                text-transform: uppercase;
+            }
+
+            .hero-meta {
+                margin: 0;
+                color: var(--muted-ink);
+                font-size: 0.95rem;
+            }
+
+            .hero-actions {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 10px;
+                margin-top: 22px;
+            }
+
+            .btn {
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                min-height: 40px;
+                padding: 10px 16px;
+                border-radius: 999px;
+                border: 1px solid transparent;
+                text-decoration: none;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition:
+                    transform 0.24s ease,
+                    box-shadow 0.24s ease,
+                    background-color 0.24s ease;
+            }
+
+            .btn:hover {
+                transform: translateY(-2px);
+            }
+
+            .btn-primary {
+                background: var(--accent);
+                color: #ffffff;
+                box-shadow: 0 10px 24px rgba(15, 110, 90, 0.28);
+            }
+
+            .btn-soft {
+                background: var(--accent-soft);
+                border-color: rgba(15, 110, 90, 0.28);
+                color: #155847;
+            }
+
+            .layout {
+                display: grid;
+                grid-template-columns: 280px minmax(0, 1fr);
+                gap: 18px;
+                margin-top: 18px;
+            }
+
+            .pane {
+                border: 1px solid var(--line);
+                border-radius: var(--radius);
+                background: var(--panel);
+                backdrop-filter: blur(4px);
+                box-shadow: var(--shadow);
+                padding: 22px;
+            }
+
+            .pane h2,
+            .pane h3,
+            .pane h4 {
+                margin: 0;
+                font-family: "Cormorant Garamond", Georgia, serif;
+                line-height: 1.15;
+            }
+
+            .aside {
+                position: sticky;
+                top: 16px;
+                align-self: start;
+                max-height: calc(100vh - 32px);
+                overflow: auto;
+                scrollbar-width: thin;
+            }
+
+            .section-label {
+                display: block;
+                margin-bottom: 12px;
+                font-size: 0.72rem;
+                font-weight: 700;
+                letter-spacing: 0.18em;
+                color: var(--muted-ink);
+                text-transform: uppercase;
+            }
+
+            .stack {
+                display: grid;
+                gap: 14px;
+            }
+
+            .entry {
+                padding-bottom: 0;
+                border-bottom: 0;
+            }
+
+            .entry + .entry {
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px dashed rgba(89, 85, 79, 0.35);
+            }
+
+            .right-section-divider {
+                border-bottom: 1px dashed rgba(89, 85, 79, 0.35);
+                padding-bottom: 14px;
+            }
+
+            .entry h4 {
+                font-size: 1.35rem;
+                margin-bottom: 5px;
+            }
+
+            .entry-meta {
+                margin: 0 0 8px;
+                font-size: 0.9rem;
+                color: var(--muted-ink);
+            }
+
+            ul {
+                margin: 8px 0 0;
+                padding-left: 18px;
+            }
+
+            .chip-grid {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-top: 8px;
+            }
+
+            .chip {
+                border: 1px solid var(--line);
+                background: rgba(255, 255, 255, 0.78);
+                border-radius: 999px;
+                padding: 4px 10px;
+                font-size: 0.82rem;
+                color: #2c2c2c;
+            }
+
+            .social {
+                display: grid;
+                gap: 8px;
+                margin-top: 8px;
+            }
+
+            .social a {
+                color: #274238;
+                text-decoration-thickness: 1px;
+            }
+
+            .fade-up {
+                opacity: 0;
+                transform: translateY(16px);
+                animation: fadeUp 0.75s ease forwards;
+                animation-delay: var(--delay, 0s);
+            }
+
+            @keyframes fadeUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(16px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            .footer {
+                margin-top: 18px;
+                text-align: center;
+                color: var(--muted-ink);
+                font-size: 0.85rem;
+            }
+
+            @media (max-width: 960px) {
+                .layout {
+                    grid-template-columns: 1fr;
+                }
+
+                .aside {
+                    position: static;
+                    max-height: none;
+                    overflow: visible;
+                }
+            }
+
+            @media print {
+                body {
+                    background: #ffffff;
+                }
+
+                .shell {
+                    padding: 0;
+                    max-width: 100%;
+                }
+
+                .hero,
+                .pane {
+                    box-shadow: none;
+                    backdrop-filter: none;
+                    background: #ffffff;
+                }
+
+                .fade-up {
+                    opacity: 1;
+                    transform: none;
+                    animation: none;
+                }
+            }
+        </style>
     </head>
-    <body style="max-width: 1080px; margin: 25px auto; padding: 0 25px">
-        <h1 style="margin-bottom: 5px">Sukanta Bala</h1>
-        <h3>
-            <i>Full-Stack Developer</i> |
-            <i>Tech Enthusiast</i>
-        </h3>
-        <p style="margin: 4px 0; color: gray">
-            Kolkata, India |
-            <a href="tel:+918100098607" style="color: gray">+91-81000-98607</a>
-        </p>
-        <a
-            href="https://drive.google.com/uc?export=download&id=1uDZYuP_93RMRocGYth_uzfHYj8TzFH-i"
-            target="_blank"
-            >Download Resume</a
-        >
-        <hr />
-        <h2>About me</h2>
-        <p>
-            Full-Stack Developer with expertise in modern web technologies
-            including TypeScript, React, and Node.js, complemented by hands-on
-            experience in machine learning and Deep Learning. End-to-end
-            building of scalable applications with 80% improvement in data
-            validation and sub-300ms API latency. Published researcher in
-            agricultural AI with award-winning work on YOLO-based growth stage
-            detection achieving 89% mAP@0.5. Seeking software engineering roles
-            to leverage full-stack development skills and complete ownership and
-            accountability in building impactful, production-ready solutions.
-        </p>
-        <hr />
-        <h2>Experience</h2>
-        <h4 style="margin: 2px">
-            IT/Technology Intern |
-            <a
-                href="https://www.ingreens.in"
-                style="text-decoration: none"
-                target="_blank"
-                >InGreens</a
-            >
-            | Kolkata | <i style="color: gray">Feb 2026 – Present</i>
-        </h4>
-        <ul>
-            <li>
-                Migrated a 13-page legacy jQuery multi-page application to a
-                scalable React SPA, replacing imperative DOM manipulation with
-                declarative component architecture.
-            </li>
-            <li>
-                Abstracted 20+ reusable UI components and reduced duplicate
-                markup by 30%, standardizing data contracts to support RESTful
-                backend integration via TanStack Query.
-            </li>
-            <li>
-                Delivered responsive mobile-first layouts and optimized state
-                flow, improving frontend scalability and reducing future feature
-                integration complexity.
-            </li>
-        </ul>
-        <hr />
-        <h2>Skills</h2>
-        <ul>
-            <li>
-                <strong>Programming Languages: </strong>
-                TypeScript, JavaScript (ES6+), Python, C++, Java, C, HTML5, CSS3
-            </li>
-            <li>
-                <strong>Frontend Development:</strong>
-                React.js, Next.js, Tailwind CSS, TanStack Query, Shadcn/ui,
-                DaisyUI
-            </li>
-            <li>
-                <strong>Backend Development:</strong>
-                RESTful APIs, Node.js, Express.js, JWT Authentication
-            </li>
-            <li>
-                <strong>Databases</strong>
-                PostgreSQL, MongoDB, MySQL
-            </li>
-            <li>
-                <strong>Cloud/DevOps:</strong>
-                AWS (ECS), Docker, Vercel, Git, GitHub Actions
-            </li>
-            <li>
-                <strong>Machine Learning & Deep Learning:</strong>
-                PyTorch, Ultralytics, Streamlit
-            </li>
-            <li>
-                <strong>Operating Systems:</strong>
-                Linux, Debian, Ubuntu, Arch Linux
-            </li>
-        </ul>
-        <hr />
-        <h2>Projects</h2>
-        <h4 style="margin: 2px">
-            ProjectDojo - Learning Platform for Project-based skill building |
-            <a
-                href="https://github.com/su1nta/ProjectDojo"
-                style="text-decoration: none"
-                target="_blank"
-                >GitHub</a
-            >
-            |
-            <a
-                href="https://photos.app.goo.gl/uJgxVPsM5Ya85Bep9"
-                style="text-decoration: none; color: green"
-                target="_blank"
-                >UI Preview</a
-            >
-            |
-            <i style="color: gray">Nov 2025 - Present</i>
-        </h4>
-        <span style="color: gray">
-            <i>Next.js, React, Node.js, Express, MongoDB, JWT, RBAC</i>
-        </span>
-        <ul>
-            <li>
-                Built a component-driven Next.js frontend for a learning
-                platform with role-based dashboards and content views.
-            </li>
-            <li>
-                Added statically rendered pages with reusable UI components for
-                course discovery and progress tracking across user roles.
-            </li>
-            <li>
-                Developed 15+ RESTful APIs with JWT-based authentication and
-                role-based access control, enforcing secure access across all
-                protected routes.
-            </li>
-            <li>
-                Designed 4+ MongoDB schemas with proper references for courses,
-                purchases, bookmarks, and blogs, enabling filtering, pagination,
-                and user-specific data views.
-            </li>
-        </ul>
+    <body>
+        <main class="shell">
+            <header class="hero fade-up" style="--delay: 0.05s">
+                <h1 class="name">Sukanta Bala</h1>
+                <p class="role">Full-Stack Developer | Tech Enthusiast</p>
+                <p class="hero-meta">
+                    Kolkata, India |
+                    <a href="tel:+918100098607">+91-81000-98607</a>
+                </p>
+                <div class="hero-actions">
+                    <a
+                        class="btn btn-primary"
+                        href="https://drive.google.com/uc?export=download&id=1W0Iuxg5knYUrs590rRXeDsmD6FzX6NrY"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        >Download Resume</a
+                    >
+                    <a
+                        class="btn btn-soft"
+                        href="mailto:sukanta.developer@gmail.com"
+                        >Email</a
+                    >
+                </div>
+            </header>
 
-        <h4 style="margin: 2px">
-            Agenlabs Landing Template - TypeScript + Tailwind Site |
-            <a
-                href="https://github.com/su1nta/landing_agenlabs"
-                style="text-decoration: none"
-                target="_blank"
-                >GitHub</a
-            >
-            |
-            <a
-                href="https://landing-agenlabs.vercel.app"
-                style="text-decoration: none; color: green"
-                target="_blank"
-                >Live</a
-            >
-            |
-            <i style="color: gray">Nov 2025</i>
-        </h4>
-        <span style="color: gray">
-            <i>TypeScript, React, Tailwind CSS </i>
-        </span>
-        <ul>
-            <li>
-                Created a reusable multi-section landing page template with 4
-                separate sections such as hero, services, testimonials,
-                showcase, and blog.
-            </li>
-            <li>
-                Enforced client-side routing and hash-based navigation using
-                React Router 7 for smooth single-page navigation and UX flow.
-            </li>
-            <li>
-                Applied responsive layouts and UI enhancements using Tailwind
-                CSS v4 (gradients, spacing, typography) optimized for mobile and
-                desktop screens.
-            </li>
-        </ul>
+            <section class="layout">
+                <aside class="pane aside fade-up" style="--delay: 0.16s">
+                    <section>
+                        <span class="section-label">Profile</span>
+                        <p style="color: rgba(110, 110, 110, 0.85)">
+                            Full-Stack Developer focused on modern
+                            TypeScript-first products with practical ML depth.
+                            Built scalable apps with 80% validation improvements
+                            and sub-300ms APIs, plus published research in
+                            agricultural AI.
+                        </p>
+                    </section>
 
-        <hr />
-        <h2>Research Work</h2>
-        <h4 style="margin: 2px">
-            Tomato Growth Stage Detection and Harvest Interval Prediction |
-            <a
-                href="https://link.springer.com/chapter/10.1007/978-981-96-6534-1_12"
-                style="text-decoration: none"
-                target="_blank"
-                >Link</a
-            >
-            | <span style="color: gray">Sep 2024 - Jan 2025</span>
-        </h4>
-        <ul>
-            <li>
-                Co-authored a conference paper titled ”Monitoring Tomato Growth
-                Stage and Harvest Interval Prediction Using YOLO11”, focusing on
-                advanced tomato growth stage identification techniques,
-                improving over previous YOLO models with 89% mAP@0.5.
-            </li>
-            <li>
-                Led the evaluation of the YOLO11 model across diverse datasets,
-                including both original and augmented data, to improve detection
-                accuracy throughout various growth stages.
-            </li>
-            <li>
-                Implemented an optimized version of YOLO tailored for edge
-                devices, facilitating practical deployment in
-                resource-constrained agricultural environments.
-            </li>
-        </ul>
-        <hr />
-        <h2>Achievements</h2>
-        <ul>
-            <li>
-                Won <strong>Best Paper (2nd Runner-up)</strong> at ICDMAI 2025
-                for conference paper titled
-                <em
-                    >Monitoring Tomato Growth Stage and Harvest Interval
-                    Prediction Using YOLO11</em
-                >.
-            </li>
-            <li>
-                Secured <strong>1st position</strong> in Data Odyssey Case Study
-                Competition organized by T.A. Pai Management Institute.
-            </li>
-            <li>
-                Achieved <strong>Gold (Topper 1%)</strong> in NPTEL course
-                <em>Programming in Java</em>.
-            </li>
-        </ul>
-        <hr />
-        <h2>Education</h2>
-        <h4 style="margin: 2px">
-            Masters of Computer Application (MCA) |
-            <span style="color: gray">2023-2025</span>
-        </h4>
-        <span style="color: gray"><i>AKCSIT, University of Calcutta</i></span>
-        <hr />
-        <h2>Contact</h2>
-        <strong>Email: </strong
-        ><span
-            ><a href="mailto:sukanta.developer@gmail.com" style="color: black"
-                >sukanta.developer@gmail.com</a
-            ></span
-        >
-        <br />
-        <strong>GitHub: </strong
-        ><span
-            ><a
-                href="https://github.com/su1nta"
-                style="color: black"
-                target="_blank"
-                >su1nta</a
-            ></span
-        >
-        <br />
-        <strong>Blog: </strong
-        ><span
-            ><a
-                href="https://blog.sukanta.dev"
-                style="color: black"
-                target="_blank"
-                >blog.sukanta.dev</a
-            ></span
-        >
-        <br />
-        <strong>LinkedIn: </strong
-        ><span
-            ><a
-                href="https://linkedin.com/in/su1nta"
-                style="color: black"
-                target="_blank"
-                >su1nta</a
-            ></span
-        >
-        <hr />
-        <strong style="color: gray"
-            >&copy; 2026 Sukanta Bala. All Rights Reserved.</strong
-        >
+                    <section style="margin-top: 10px">
+                        <span class="section-label">Contact</span>
+                        <div class="social">
+                            <a href="mailto:sukanta.developer@gmail.com"
+                                >sukanta.developer@gmail.com</a
+                            >
+                            <a
+                                href="https://github.com/su1nta"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >github.com/su1nta</a
+                            >
+                            <a
+                                href="https://blog.sukanta.dev"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >blog.sukanta.dev</a
+                            >
+                            <a
+                                href="https://linkedin.com/in/su1nta"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                >linkedin.com/in/su1nta</a
+                            >
+                        </div>
+                    </section>
+
+                    <section style="margin-top: 15px">
+                        <span class="section-label">Core Skills</span>
+                        <h3>Languages</h3>
+                        <div class="chip-grid">
+                            <span class="chip">TypeScript</span>
+                            <span class="chip">JavaScript</span>
+                            <span class="chip">Python</span>
+                            <span class="chip">C++</span>
+                            <span class="chip">Java</span>
+                            <span class="chip">HTML5</span>
+                            <span class="chip">CSS3</span>
+                        </div>
+
+                        <h3 style="margin-top: 12px">Frontend</h3>
+                        <div class="chip-grid">
+                            <span class="chip">React.js</span>
+                            <span class="chip">Next.js</span>
+                            <span class="chip">Tailwind CSS</span>
+                            <span class="chip">TanStack Query</span>
+                            <span class="chip">Shadcn/ui</span>
+                        </div>
+
+                        <h3 style="margin-top: 12px">Backend & Data</h3>
+                        <div class="chip-grid">
+                            <span class="chip">Node.js</span>
+                            <span class="chip">Express.js</span>
+                            <span class="chip">REST APIs</span>
+                            <span class="chip">JWT Auth</span>
+                            <span class="chip">PostgreSQL</span>
+                            <span class="chip">MongoDB</span>
+                            <span class="chip">MySQL</span>
+                        </div>
+
+                        <h3 style="margin-top: 12px">Cloud & ML</h3>
+                        <div class="chip-grid">
+                            <span class="chip">AWS ECS</span>
+                            <span class="chip">Docker</span>
+                            <span class="chip">GitHub Actions</span>
+                            <span class="chip">PyTorch</span>
+                            <span class="chip">Ultralytics</span>
+                            <span class="chip">Streamlit</span>
+                        </div>
+                    </section>
+                </aside>
+
+                <div class="pane fade-up" style="--delay: 0.24s">
+                    <section class="stack">
+                        <div class="right-section-divider">
+                            <span class="section-label">Experience</span>
+                            <article class="entry">
+                                <h4>
+                                    IT/Technology Intern,
+                                    <a
+                                        href="https://www.ingreens.in"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >InGreens</a
+                                    >
+                                </h4>
+                                <p class="entry-meta">
+                                    Kolkata | Feb 2026 - Present
+                                </p>
+                                <ul>
+                                    <li>
+                                        Migrated a 13-page legacy jQuery
+                                        multi-page app into a scalable React SPA
+                                        with declarative component architecture.
+                                    </li>
+                                    <li>
+                                        Abstracted 20+ reusable UI components
+                                        and reduced duplicate markup by 30%
+                                        while standardizing REST integration
+                                        with TanStack Query.
+                                    </li>
+                                    <li>
+                                        Delivered responsive mobile-first
+                                        layouts and improved state flow to
+                                        reduce future integration complexity.
+                                    </li>
+                                </ul>
+                            </article>
+                        </div>
+
+                        <div class="right-section-divider">
+                            <span class="section-label">Projects</span>
+                            <article class="entry">
+                                <h4>ProjectDojo</h4>
+                                <p class="entry-meta">
+                                    Nov 2025 - Present |
+                                    <a
+                                        href="https://github.com/su1nta/ProjectDojo"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub</a
+                                    >
+                                    |
+                                    <a
+                                        href="https://photos.app.goo.gl/uJgxVPsM5Ya85Bep9"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >UI Preview</a
+                                    >
+                                </p>
+                                <p>
+                                    <em
+                                        >Next.js, React, Node.js, Express,
+                                        MongoDB, JWT, RBAC</em
+                                    >
+                                </p>
+                                <ul>
+                                    <li>
+                                        Built a component-driven frontend with
+                                        role-based dashboards and focused
+                                        content views.
+                                    </li>
+                                    <li>
+                                        Added static-rendered pages and reusable
+                                        UI blocks for discovery and progress
+                                        tracking.
+                                    </li>
+                                    <li>
+                                        Developed 15+ RESTful APIs with JWT auth
+                                        and RBAC for secure protected routes.
+                                    </li>
+                                    <li>
+                                        Designed 4+ MongoDB schemas for courses,
+                                        purchases, bookmarks, and blogs with
+                                        filtering and pagination support.
+                                    </li>
+                                </ul>
+                            </article>
+
+                            <article class="entry">
+                                <h4>Agenlabs Landing Template</h4>
+                                <p class="entry-meta">
+                                    Nov 2025 |
+                                    <a
+                                        href="https://github.com/su1nta/landing_agenlabs"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >GitHub</a
+                                    >
+                                    |
+                                    <a
+                                        href="https://landing-agenlabs.vercel.app"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Live</a
+                                    >
+                                </p>
+                                <p><em>TypeScript, React, Tailwind CSS</em></p>
+                                <ul>
+                                    <li>
+                                        Created a reusable multi-section landing
+                                        page template spanning hero, services,
+                                        testimonials, showcase, and blog.
+                                    </li>
+                                    <li>
+                                        Implemented hash-based navigation with
+                                        React Router 7 for smooth single-page UX
+                                        flow.
+                                    </li>
+                                    <li>
+                                        Applied responsive Tailwind v4 layouts
+                                        with typography, spacing, and gradient
+                                        refinements.
+                                    </li>
+                                </ul>
+                            </article>
+                        </div>
+
+                        <div class="right-section-divider">
+                            <span class="section-label">Research</span>
+                            <article class="entry">
+                                <h4>
+                                    Tomato Growth Stage Detection and Harvest
+                                    Interval Prediction
+                                </h4>
+                                <p class="entry-meta">
+                                    Sep 2024 - Jan 2025 |
+                                    <a
+                                        href="https://link.springer.com/chapter/10.1007/978-981-96-6534-1_12"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        >Publication</a
+                                    >
+                                </p>
+                                <ul>
+                                    <li>
+                                        Co-authored "Monitoring Tomato Growth
+                                        Stage and Harvest Interval Prediction
+                                        Using YOLO11" with 89% mAP@0.5.
+                                    </li>
+                                    <li>
+                                        Led model evaluation across original and
+                                        augmented datasets to improve detection
+                                        across growth stages.
+                                    </li>
+                                    <li>
+                                        Implemented an edge-ready optimization
+                                        path for deployment in
+                                        resource-constrained agricultural
+                                        settings.
+                                    </li>
+                                </ul>
+                            </article>
+                        </div>
+
+                        <div>
+                            <span class="section-label">Achievements</span>
+                            <article class="entry">
+                                <ul>
+                                    <li>
+                                        Won
+                                        <strong>Best Paper Award</strong> (2nd
+                                        Runner-up) at
+                                        <strong>ICDMAI 2025</strong> for the
+                                        YOLO11 tomato monitoring paper.
+                                    </li>
+                                    <li>
+                                        Secured <strong>1st position</strong> in
+                                        Data Odyssey Case Study Competition by
+                                        T.A. Pai Management Institute.
+                                    </li>
+                                    <li>
+                                        Achieved <strong>Gold</strong> (Topper
+                                        1%) in NPTEL Programming in Java.
+                                    </li>
+                                </ul>
+                            </article>
+                        </div>
+
+                        <div>
+                            <span class="section-label">Education</span>
+                            <article class="entry">
+                                <h4>Master of Computer Application (MCA)</h4>
+                                <p class="entry-meta">
+                                    AKCSIT, University of Calcutta | 2023 - 2025
+                                </p>
+                            </article>
+                            <hr
+                                style="
+                                    border: 1px dashed rgba(89, 85, 79, 0.35);
+                                "
+                            />
+                            <article class="entry">
+                                <h4>
+                                    Bachelor of Science (Hons) in Computer
+                                    Science
+                                </h4>
+                                <p class="entry-meta">
+                                    APC College, WBSU |
+                                    <strong>9.36</strong> CGPA | 2023 - 2025
+                                </p>
+                            </article>
+                        </div>
+                    </section>
+                </div>
+            </section>
+
+            <footer class="footer">
+                &copy; 2026 Sukanta Bala. All rights reserved.
+            </footer>
+        </main>
     </body>
 </html>

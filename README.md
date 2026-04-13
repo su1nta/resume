@@ -1,6 +1,6 @@
 ## Sukanta's Resume
 
-A backend developer's portfolio/resume, a single-page website built with plain **HTML**. It’s lightweight, fast, and easy to customize.
+A backend developer's portfolio/resume, a single-page website built with plain **HTML** and **CSS**. It’s lightweight, fast, and easy to customize.
 
 [Live Link](https://sukanta.dev)
 
